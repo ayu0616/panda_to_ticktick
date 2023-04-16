@@ -2,9 +2,9 @@ FROM python:alpine
 
 WORKDIR /app
 
-ARG TICKTICK_TOKEN_OAUTH
+# ARG TICKTICK_TOKEN_OAUTH
 
-RUN echo ${TICKTICK_TOKEN_OAUTH} > .token-oauth
+# RUN echo ${TICKTICK_TOKEN_OAUTH} > .token-oauth
 
 COPY requirements.txt .
 
