@@ -13,6 +13,6 @@ RUN apk add --no-cache gcc musl-dev &&\
 
 COPY . .
 
-EXPOSE 8080
+EXPOSE 3000
 
 CMD ["python", "app.py"]
