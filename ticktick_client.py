@@ -28,6 +28,7 @@ class Client(TickTickClient):
             client_id=client_id,
             client_secret=client_secret,
             redirect_uri="http://127.0.0.1:3000",
+            cache_path="./token/.token-oauth"
         )
         return cls(username, password, oauth)
 
