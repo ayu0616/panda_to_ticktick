@@ -1,0 +1,4 @@
+ticktick-py
+requests
+bs4
+python-dotenv
