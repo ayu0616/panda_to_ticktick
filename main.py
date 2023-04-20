@@ -59,7 +59,6 @@ def main():
             if ticktick_task:
                 ticktick_client.task.complete(id=ticktick_task["id"])
                 print(f"Complete: {task.ticktick_title}")
-                sleep(1)
         else:
             if not ticktick_task:
                 d = datetime.fromtimestamp(task.deadline)
@@ -72,7 +71,7 @@ def main():
                 )
                 ticktick_client.task.create(new_task)
                 print(f"Create: {task.ticktick_title}")
-                sleep(1)
+        sleep(1)
 
 
 if __name__ == "__main__":
