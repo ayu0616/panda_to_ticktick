@@ -27,7 +27,10 @@ class Task:
                 self.panda_description = re.sub(
                     r"</?[a-z]+>", "", task_data["instructions"]
                 )
-                self.finished = task_data["submissions"][0]["userSubmission"]
+                try:
+                    self.finished = task_data["submissions"][0]["userSubmission"]
+                except TypeError:
+                    self.finished = False
             case "testquiz":
                 self.panda_id = str(task_data["publishedAssessmentId"])
                 self.deadline = task_data["dueDate"] // 1000
