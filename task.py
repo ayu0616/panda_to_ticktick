@@ -25,7 +25,7 @@ class Task:
                 self.panda_id = task_data["id"]
                 self.deadline = task_data["dueTime"]["epochSecond"]
                 self.panda_description = re.sub(
-                    r"</?[a-z]+>", "", task_data["instructions"]
+                    r"</?[a-z0-9]+>", "", task_data["instructions"]
                 )
                 try:
                     self.finished = task_data["submissions"][0]["userSubmission"]
