@@ -57,8 +57,11 @@ def main():
         ticktick_task = ticktick_client.find(task)
         if task.finished:
             if ticktick_task:
-                ticktick_client.task.complete(id=ticktick_task["id"])
-                print(f"Complete: {task.ticktick_title}")
+                try:
+                    ticktick_client.task.complete(id=ticktick_task["id"])
+                    print(f"Complete: {task.ticktick_title}")
+                except TypeError:
+                    pass
         else:
             if not ticktick_task:
                 d = datetime.fromtimestamp(task.deadline)
