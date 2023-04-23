@@ -40,10 +40,10 @@ def main():
     tasks: list[Task] = []
     for cls in classes:
         tasks.extend(session.get_assignment(cls))
-        sleep(1)
+        sleep(0.5)
         tasks.extend(session.get_testquiz(cls))
         print(f"Get: {cls.title}")
-        sleep(1)
+        sleep(0.5)
     print()
 
     # TickTickに課題を登録
@@ -74,7 +74,7 @@ def main():
                 )
                 ticktick_client.task.create(new_task)
                 print(f"Create: {task.ticktick_title}")
-        sleep(1)
+        sleep(0.5)
 
 
 if __name__ == "__main__":
