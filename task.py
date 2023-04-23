@@ -33,7 +33,7 @@ class Task:
                     self.finished = False
             case "testquiz":
                 self.panda_id = str(task_data["publishedAssessmentId"])
-                self.deadline = task_data["dueDate"] // 1000
+                self.deadline = task_data["dueDate"] // 1000 - 32400
                 self.panda_description = ""
                 self.finished = False
 
