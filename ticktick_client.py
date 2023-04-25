@@ -66,6 +66,7 @@ class Client(TickTickClient):
             startDate=due_date,
             dueDate=due_date,
             reminders=reminders,
+            timeZone="Asia/Tokyo",
         )
 
 

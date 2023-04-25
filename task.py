@@ -23,7 +23,7 @@ class Task:
         match (type):
             case "assignment":
                 self.panda_id = task_data["id"]
-                self.deadline = task_data["dueTime"]["epochSecond"] - 32400
+                self.deadline = task_data["dueTime"]["epochSecond"]
                 self.panda_description = re.sub(r"</?[a-z0-9]+>", "", task_data["instructions"])
                 try:
                     self.finished = task_data["submissions"][0]["userSubmission"]
@@ -31,7 +31,7 @@ class Task:
                     self.finished = False
             case "testquiz":
                 self.panda_id = str(task_data["publishedAssessmentId"])
-                self.deadline = task_data["dueDate"] // 1000 + 32400
+                self.deadline = task_data["dueDate"] // 1000
                 self.panda_description = ""
                 self.finished = False
 
