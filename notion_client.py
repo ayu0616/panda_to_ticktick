@@ -42,7 +42,8 @@ class NotionClient(Session):
             "properties": {
                 "名前": {"title": [{"text": {"content": task.title}}]},
                 "panda_id": {"rich_text": [{"text": {"content": task.panda_id}}]},
-                "締切": {"date": {"start": (datetime.fromtimestamp(task.deadline) - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S+09:00")}},
+                "締切": {"date": {"start": datetime.fromtimestamp(task.deadline).strftime("%Y-%m-%dT%H:%M:%S+09:00")}},
+                # "締切": {"date": {"start": (datetime.fromtimestamp(task.deadline) - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S+09:00")}},
                 "URL": {"url": task.url},
             },
         }
