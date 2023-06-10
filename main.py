@@ -7,7 +7,7 @@ import dotenv
 from panda_class import PandaClass
 from panda_session import PandaSession
 from task import Task
-from ticktick_client import Client
+from notion_client import NotionClient
 
 
 def main():
@@ -15,22 +15,16 @@ def main():
     dotenv.load_dotenv()
     PANDA_USER_NAME = os.getenv("PANDA_USER_NAME")
     PANDA_PASSWORD = os.getenv("PANDA_PASSWORD")
-    TICKTICK_CLIENT_ID = os.getenv("TICKTICK_CLIENT_ID")
-    TICKTICK_CLIENT_SECRET = os.getenv("TICKTICK_CLIENT_SECRET")
-    TICKTICK_USER_NAME = os.getenv("TICKTICK_USER_NAME")
-    TICKTICK_PASSWORD = os.getenv("TICKTICK_PASSWORD")
+    NOTION_SECRET = os.getenv("NOTION_SECRET")
+    NOTION_DB_ID = os.getenv("NOTION_DB_ID")
     if not PANDA_USER_NAME:
         raise ValueError("PANDA_USER_NAME is not set")
     if not PANDA_PASSWORD:
         raise ValueError("PANDA_PASSWORD is not set")
-    if not TICKTICK_CLIENT_ID:
-        raise ValueError("TICKTICK_CLIENT_ID is not set")
-    if not TICKTICK_CLIENT_SECRET:
-        raise ValueError("TICKTICK_CLIENT_SECRET is not set")
-    if not TICKTICK_USER_NAME:
-        raise ValueError("TICKTICK_USER_NAME is not set")
-    if not TICKTICK_PASSWORD:
-        raise ValueError("TICKTICK_PASSWORD is not set")
+    if not NOTION_SECRET:
+        raise ValueError("NOTION_SECRET is not set")
+    if not NOTION_DB_ID:
+        raise ValueError("NOTION_DB_ID is not set")
 
     # PandAから課題を取得
     session = PandaSession(PANDA_USER_NAME, PANDA_PASSWORD)
@@ -47,32 +41,22 @@ def main():
     print()
 
     # TickTickに課題を登録
-    ticktick_client = Client.login(
-        TICKTICK_CLIENT_ID,
-        TICKTICK_CLIENT_SECRET,
-        TICKTICK_USER_NAME,
-        TICKTICK_PASSWORD,
-    )
+    notion_client = NotionClient(NOTION_SECRET, NOTION_DB_ID)
     for task in tasks:
-        ticktick_task = ticktick_client.find(task)
+        notion_task = notion_client.find(task)
         if task.finished:
-            if ticktick_task:
+            if notion_task:
                 try:
-                    ticktick_client.task.complete(id=ticktick_task["id"])
+                    # ticktick_client.task.complete(id=notion_task["id"])
                     print(f"Complete: {task.ticktick_title}")
                 except TypeError:
                     pass
         else:
-            if not ticktick_task:
+            if not notion_task:
                 d = datetime.fromtimestamp(task.deadline)
                 if d.hour == 0 and d.minute == 0:
                     d -= timedelta(minutes=1)
-                new_task = ticktick_client.task_builder(
-                    title=task.ticktick_title,
-                    content=task.ticktick_description,
-                    due_date=d,
-                )
-                ticktick_client.task.create(new_task)
+                notion_client.register_task(task)
                 print(f"Create: {task.ticktick_title}")
         sleep(0.5)
 
