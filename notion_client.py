@@ -37,13 +37,16 @@ class NotionClient(Session):
         return False
 
     def register_task(self, task: Task) -> None:
+        dl = datetime.fromtimestamp(task.deadline)
+        if (dl.hour == 0 or dl.hour == 9) and dl.minute == 0:
+            dl -= timedelta(minutes=1)
         body = {
             "parent": {"database_id": self.db_id},
             "properties": {
                 "名前": {"title": [{"text": {"content": f"{task.ticktick_title}）"}}]},
                 "panda_id": {"rich_text": [{"text": {"content": task.panda_id}}]},
-                "締切": {"date": {"start": datetime.fromtimestamp(task.deadline).strftime("%Y-%m-%dT%H:%M:%S+09:00")}},
-                # "締切": {"date": {"start": (datetime.fromtimestamp(task.deadline) - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S+09:00")}},
+                "締切": {"date": {"start": dl.strftime("%Y-%m-%dT%H:%M:%S+09:00")}},
+                # "締切": {"date": {"start": (dl - timedelta(hours=9)).strftime("%Y-%m-%dT%H:%M:%S+09:00")}},
                 "URL": {"url": task.url},
             },
         }
