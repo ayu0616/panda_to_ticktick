@@ -28,7 +28,8 @@ class NotionClient(Session):
 
     def find(self, task: Task):
         for task_data in self.exist_task_data:
-            if task_data["properties"]["panda_id"]["rich_text"][0]["plain_text"] == task.panda_id:
+            pid_li = task_data["properties"]["panda_id"]["rich_text"]
+            if pid_li and pid_li[0]["plain_text"] == task.panda_id:
                 return task_data
 
     def exist(self, task: Task) -> bool:
