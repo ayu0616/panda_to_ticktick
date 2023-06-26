@@ -14,7 +14,7 @@ jobs:
             TOPIC: panda_to_ticktick
         steps:
             - uses: actions/checkout@v2
-            - uses: google-github-actions/setup-gcloud@master
+            - uses: google-github-actions/setup-gcloud@v1
               with:
                   project_id: dajare-evaluate
                   service_account_email: panda-to-ticktick@dajare-evaluate.iam.gserviceaccount.com
