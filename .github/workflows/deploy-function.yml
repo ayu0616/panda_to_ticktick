@@ -1,4 +1,4 @@
-name: Deploy function-a
+name: Deploy function
 on:
     push:
         branches:
