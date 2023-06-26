@@ -10,7 +10,7 @@ from task import Task
 from notion_client import NotionClient
 
 
-def main():
+def main(*args):
     # 環境変数の読み込み
     dotenv.load_dotenv()
     PANDA_USER_NAME = os.getenv("PANDA_USER_NAME")
