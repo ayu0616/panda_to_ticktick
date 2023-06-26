@@ -3,8 +3,6 @@ on:
     push:
         branches:
             - master
-        paths:
-            - "*"
 
 jobs:
     deploy:
@@ -20,7 +18,7 @@ jobs:
               with:
                   project_id: dajare-evaluate
                   service_account_email: panda-to-ticktick@dajare-evaluate.iam.gserviceaccount.com
-                  service_account_key: ${{ secrets.gcp }}
+                  service_account_key: ${{ secrets.GCP }}
             - name: Deploy Functions
               run: |
                   gcloud functions deploy panda_to_ticktick --source ./ --region=${REGION} --entry-point ${ENTRY_POINT} --runtime go113 --trigger-topic=${TOPIC}
